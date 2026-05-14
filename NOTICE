@@ -1,0 +1,49 @@
+KillerPDF — Fork
+================
+
+This product is a modified fork of KillerPDF, a Windows PDF editor.
+
+Original work
+-------------
+    KillerPDF
+    Copyright (C) 2024-2025 Steve "TheKiller"
+    https://github.com/SteveTheKiller/KillerPDF
+    Licensed under the GNU General Public License v3.0
+
+Modifications
+-------------
+    Copyright (C) 2026 <YOUR NAME HERE>
+    Licensed under the GNU General Public License v3.0
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+Summary of modifications in this fork
+-------------------------------------
+See CHANGELOG.md ("Fork additions" section) and ATTRIBUTION.md for a
+file-by-file breakdown of what changed from upstream KillerPDF and why.
+
+Third-party components
+----------------------
+This software bundles or depends on the following third-party libraries.
+Their licenses apply to the respective binaries; consult each project for
+full terms.
+
+    PDFium (via Docnet.Core)  — Apache 2.0 / BSD-3
+    Docnet.Core               — MIT
+    PdfSharpCore              — MIT
+    PdfPig                    — Apache 2.0
+    System.Text.Json          — MIT (Microsoft)
+    xUnit (tests only)        — Apache 2.0
+
+The use of any of these libraries does not imply endorsement by their
+authors. See each project's repository for authoritative license text.

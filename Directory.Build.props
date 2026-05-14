@@ -1,0 +1,21 @@
+<Project>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Authors>Steve "TheKiller" (original); &lt;YOUR NAME HERE&gt; (modifications)</Authors>
+    <Copyright>Copyright (C) 2024-2026 KillerPDF contributors. Licensed under GPL-3.0.</Copyright>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <!-- Treat warnings as errors only for the Core library so its quality bar stays high.
+       The App project tolerates warnings during the WPF port. -->
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'KillerPDF.Core'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+</Project>

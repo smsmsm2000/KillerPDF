@@ -1,0 +1,84 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Derive version from tag
+        id: ver
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $ver = $tag.TrimStart('v')
+          "version=$ver" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Version: $ver"
+
+      - name: Restore
+        run: dotnet restore KillerPDF.sln
+
+      - name: Test
+        run: dotnet test KillerPDF.sln -c Release
+
+      - name: Publish single-file EXE
+        run: |
+          dotnet publish src/KillerPDF.App/KillerPDF.App.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained true `
+            /p:PublishSingleFile=true `
+            /p:IncludeAllContentForSelfExtract=true `
+            /p:EnableCompressionInSingleFile=true `
+            /p:Version=${{ steps.ver.outputs.version }}
+
+      - name: Zip binary
+        shell: pwsh
+        run: |
+          $pub = "src/KillerPDF.App/bin/Release/net8.0-windows/win-x64/publish"
+          Compress-Archive -Path "$pub/KillerPDF.exe" -DestinationPath "KillerPDF.zip"
+
+      - name: Locate GPL source bundle
+        id: src
+        shell: pwsh
+        run: |
+          $pub = "src/KillerPDF.App/bin/Release/net8.0-windows/win-x64/publish"
+          $srcZip = Get-ChildItem -Path $pub -Filter 'KillerPDF-*-src.zip' | Select-Object -First 1
+          if ($srcZip) {
+            "path=$($srcZip.FullName)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            Write-Host "Found source bundle: $($srcZip.FullName)"
+          } else {
+            Write-Warning "GPL source bundle not found. The publish target must have failed silently."
+            "path=" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          body: |
+            ## KillerPDF (fork) ${{ github.ref_name }}
+
+            A modernized fork of [KillerPDF](https://github.com/SteveTheKiller/KillerPDF) by Steve "TheKiller".
+
+            **GPL-3.0** — source bundle attached alongside the binary.
+
+            See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md) for details.
+          files: |
+            KillerPDF.zip
+            ${{ steps.src.outputs.path }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
