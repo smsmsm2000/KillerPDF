@@ -1,5 +1,11 @@
 # KillerPDF (modernized fork)
 
+[![CI](https://github.com/smsmsm2000/KillerPDF/actions/workflows/ci.yml/badge.svg)](https://github.com/smsmsm2000/KillerPDF/actions/workflows/ci.yml)
+[![Release](https://github.com/smsmsm2000/KillerPDF/actions/workflows/release.yml/badge.svg)](https://github.com/smsmsm2000/KillerPDF/actions/workflows/release.yml)
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/download/dotnet/8.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL_v3-blue.svg)](LICENSE)
+[![Upstream: KillerPDF v1.3.2](https://img.shields.io/badge/upstream-KillerPDF%20v1.3.2-orange)](https://github.com/SteveTheKiller/KillerPDF)
+
 > A modernized, MVVM-refactored fork of [KillerPDF](https://github.com/SteveTheKiller/KillerPDF)
 > by Steve "TheKiller". Same feature set, .NET 8, split into a testable
 > `Core` library + WPF `App` shell. GPL-3.0.
@@ -99,6 +105,6 @@ in the first place.
 - **Steve "TheKiller"** — original author of KillerPDF
   ([github.com/SteveTheKiller](https://github.com/SteveTheKiller),
   [killertools.net](https://killertools.net))
-- **\<YOUR NAME HERE\>** — this fork's refactoring and modernization
+- **smsmsm2000** — this fork's refactoring and modernization
 
 See [ATTRIBUTION.md](ATTRIBUTION.md) for the detailed file-by-file changelog.

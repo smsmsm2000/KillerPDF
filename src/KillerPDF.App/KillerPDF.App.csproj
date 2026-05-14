@@ -39,7 +39,7 @@
   <Target Name="BundleSource" AfterTargets="Publish">
     <Exec
       Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)..\..\build\bundle-source.ps1&quot; -ProjectDir &quot;$(MSBuildThisFileDirectory.TrimEnd('\'))&quot; -Version &quot;$(Version)&quot; -AppName &quot;$(AssemblyName)&quot; -PublishDir &quot;$(PublishDir.TrimEnd('\'))&quot;"
-      IgnoreExitCode="true"
+      ContinueOnError="false"
       Condition="Exists('$(MSBuildThisFileDirectory)..\..\build\bundle-source.ps1')" />
   </Target>
 

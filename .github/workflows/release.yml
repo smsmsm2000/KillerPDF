@@ -49,21 +49,24 @@ jobs:
         shell: pwsh
         run: |
           $pub = "src/KillerPDF.App/bin/Release/net8.0-windows/win-x64/publish"
+          if (-not (Test-Path "$pub/KillerPDF.exe")) {
+            Write-Error "Publish failed: KillerPDF.exe not found at $pub"
+            exit 1
+          }
           Compress-Archive -Path "$pub/KillerPDF.exe" -DestinationPath "KillerPDF.zip"
 
-      - name: Locate GPL source bundle
+      - name: Verify GPL source bundle exists
         id: src
         shell: pwsh
         run: |
           $pub = "src/KillerPDF.App/bin/Release/net8.0-windows/win-x64/publish"
           $srcZip = Get-ChildItem -Path $pub -Filter 'KillerPDF-*-src.zip' | Select-Object -First 1
-          if ($srcZip) {
-            "path=$($srcZip.FullName)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-            Write-Host "Found source bundle: $($srcZip.FullName)"
-          } else {
-            Write-Warning "GPL source bundle not found. The publish target must have failed silently."
-            "path=" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          if (-not $srcZip) {
+            Write-Error "GPL VIOLATION RISK: source bundle (KillerPDF-*-src.zip) not produced by publish. Refusing to release a binary without source. Check build/bundle-source.ps1 for errors."
+            exit 1
           }
+          "path=$($srcZip.FullName)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Source bundle present: $($srcZip.Name) ($([math]::Round($srcZip.Length / 1KB, 1)) KB)"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -74,11 +77,12 @@ jobs:
 
             A modernized fork of [KillerPDF](https://github.com/SteveTheKiller/KillerPDF) by Steve "TheKiller".
 
-            **GPL-3.0** — source bundle attached alongside the binary.
+            **GPL-3.0** — the corresponding source bundle is attached alongside the binary, as required by GPL section 6.
 
             See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md) for details.
           files: |
             KillerPDF.zip
             ${{ steps.src.outputs.path }}
+          fail_on_unmatched_files: true
           draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}

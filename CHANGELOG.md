@@ -11,6 +11,32 @@ good practice and gives readers the full history in one place.
 
 ## Fork additions
 
+### [Unreleased] — v2 polish
+
+**GPL compliance hardening**
+- Release workflow now **fails the build** if `KillerPDF-*-src.zip` is
+  missing after publish, instead of silently shipping a binary without
+  source.
+- Removed `IgnoreExitCode="true"` from the `BundleSource` MSBuild target
+  so source-bundling errors are surfaced at build time, not after release.
+- Added `fail_on_unmatched_files: true` to the release-create action so
+  a missing artifact aborts the release instead of half-publishing.
+
+**CI & quality gates**
+- New `pr.yml` workflow: runs `dotnet format --verify-no-changes`,
+  `dotnet build -warnaserror`, and `dotnet test` with coverage on every PR.
+- Added `.github/dependabot.yml` — weekly NuGet updates (grouped: pdf-stack,
+  test-stack) and monthly GitHub Actions updates.
+
+**Project polish**
+- Added `CONTRIBUTING.md` with build/test instructions, layout rules,
+  and commit-message conventions.
+- Added issue templates (bug, feature) and a PR template that prompts
+  for upstream port references.
+- Added README badges: CI status, Release status, .NET 8, GPL-3.0,
+  upstream pointer.
+- Filled in author attribution throughout (`smsmsm2000`).
+
 ### [Unreleased]
 
 **Modernization**

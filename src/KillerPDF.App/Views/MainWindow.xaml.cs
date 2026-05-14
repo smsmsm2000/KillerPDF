@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // KillerPDF — Copyright (C) 2024-2025 Steve "TheKiller" (original)
-// Fork modifications — Copyright (C) 2026 <YOUR NAME HERE>
+// Fork modifications — Copyright (C) 2026 smsmsm2000
 
 using System.Windows;
 

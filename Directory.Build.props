@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <Authors>Steve "TheKiller" (original); &lt;YOUR NAME HERE&gt; (modifications)</Authors>
+    <Authors>Steve "TheKiller" (original); smsmsm2000 (modifications)</Authors>
     <Copyright>Copyright (C) 2024-2026 KillerPDF contributors. Licensed under GPL-3.0.</Copyright>
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>

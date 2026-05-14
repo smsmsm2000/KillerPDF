@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // KillerPDF — Copyright (C) 2024-2025 Steve "TheKiller" (original)
-// Fork modifications — Copyright (C) 2026 <YOUR NAME HERE>
+// Fork modifications — Copyright (C) 2026 smsmsm2000
 //
 // This file is part of the KillerPDF fork. It is licensed under GPL-3.0.
 // See the LICENSE and NOTICE files in the repository root.

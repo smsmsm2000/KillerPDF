@@ -1,0 +1,37 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  format:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore
+        run: dotnet restore KillerPDF.sln
+      - name: Verify formatting
+        run: dotnet format KillerPDF.sln --verify-no-changes --verbosity diagnostic
+
+  build-test:
+    runs-on: windows-latest
+    needs: format
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet restore KillerPDF.sln
+      - run: dotnet build KillerPDF.sln -c Release --no-restore -warnaserror
+      - run: dotnet test KillerPDF.sln -c Release --no-build --collect:"XPlat Code Coverage"
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: '**/TestResults/**/coverage.cobertura.xml'
+          if-no-files-found: ignore

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Upstream KillerPDF
+    url: https://github.com/SteveTheKiller/KillerPDF/issues
+    about: If your issue is also present in the original KillerPDF, please report it upstream instead.
